@@ -8,6 +8,24 @@ const divide = (a, b) => a / b;
 //     let quotient = 0;
 // }
 
+const inputField = document.querySelector("#input-field");
+
+const inputOperators = document.querySelector(".input-operators");
+const buttonsInputOperator = [...inputOperators.querySelectorAll("button")];
+
+const mathOperators = document.querySelector(".math-operators");
+const buttonsMathOperator = [...mathOperators.querySelectorAll("button")];
+
+const numbers = document.querySelector(".numbers");
+const buttonsNum = [...numbers.querySelectorAll("button")];
+
+buttonsNum.forEach((button) => {
+    button.addEventListener("click", () => {
+        inputField.value += button.value;
+        // console.log(button.value);
+    });
+});
+
 function operate(num1, operator, num2) {
     switch (operator) {
         case "+":
