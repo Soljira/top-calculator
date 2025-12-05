@@ -21,6 +21,12 @@ const buttonsMathOperator = [...mathOperators.querySelectorAll("button")];
 const numbers = document.querySelector(".numbers");
 const buttonsNum = [...numbers.querySelectorAll("button")];
 
+let num1 = 0,
+    num2 = 0,
+    result = 0;
+let operator = "";
+let hasPendingOperator = false;
+
 buttonsInputOperator.forEach((button) => {
     switch (button.value) {
         case "clear":
@@ -40,13 +46,41 @@ buttonsInputOperator.forEach((button) => {
 buttonsMathOperator.forEach((button) => {
     switch (button.value) {
         case "+":
+            button.addEventListener("click", () => {
+                operator = "+";
+                num1 = +inputField.value;
+                hasPendingOperator = true;
+            });
             break;
         case "-":
+            button.addEventListener("click", () => {
+                operator = "-";
+                num1 = +inputField.value;
+                hasPendingOperator = true;
+            });
             break;
         case "*":
+            button.addEventListener("click", () => {
+                operator = "*";
+                num1 = +inputField.value;
+                hasPendingOperator = true;
+            });
             break;
         case "/":
+            button.addEventListener("click", () => {
+                operator = "/";
+                num1 = +inputField.value;
+                hasPendingOperator = true;
+            });
             break;
+        case "=":
+            button.addEventListener("click", () => {
+                num2 = +inputField.value;
+                result = operate(num1, operator, num2);
+                num1 = result;
+                inputField.value = result;
+                console.log(result);
+            });
         default:
             break;
     }
@@ -54,6 +88,10 @@ buttonsMathOperator.forEach((button) => {
 
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
+        if (hasPendingOperator) {
+            clear();
+            hasPendingOperator = false;
+        }
         inputField.value += button.value;
         // console.log(button.value);
     });
