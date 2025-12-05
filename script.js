@@ -30,7 +30,14 @@ let hasPendingOperator = false;
 buttonsInputOperator.forEach((button) => {
     switch (button.value) {
         case "clear":
-            button.addEventListener("click", () => clear());
+            button.addEventListener("click", () => {
+                clear();
+                num1 = 0;
+                num2 = 0;
+                result = 0;
+                operator = "";
+                hasPendingOperator = false;
+            });
             break;
         case "backspace":
             button.addEventListener("click", () => {
@@ -43,10 +50,21 @@ buttonsInputOperator.forEach((button) => {
     }
 });
 
+function calculate(num1, operator, num2) {
+    num2 = +inputField.value;
+    clear();
+    result = operate(num1, operator, num2);
+    num1 = result;
+    inputField.value = result;
+    hasPendingOperator = false;
+}
+
 buttonsMathOperator.forEach((button) => {
     switch (button.value) {
         case "+":
             button.addEventListener("click", () => {
+                if (hasPendingOperator) calculate(num1, operator, num2);
+
                 operator = "+";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -54,6 +72,7 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "-":
             button.addEventListener("click", () => {
+                if (hasPendingOperator) calculate(num1, operator, num2);
                 operator = "-";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -61,6 +80,8 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "*":
             button.addEventListener("click", () => {
+                if (hasPendingOperator) calculate(num1, operator, num2);
+
                 operator = "*";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -68,6 +89,8 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "/":
             button.addEventListener("click", () => {
+                if (hasPendingOperator) calculate(num1, operator, num2);
+
                 operator = "/";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -79,6 +102,7 @@ buttonsMathOperator.forEach((button) => {
                 result = operate(num1, operator, num2);
                 num1 = result;
                 inputField.value = result;
+                hasPendingOperator = false;
                 console.log(result);
             });
         default:
@@ -88,12 +112,9 @@ buttonsMathOperator.forEach((button) => {
 
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
-        if (hasPendingOperator) {
-            clear();
-            hasPendingOperator = false;
-        }
+        if (hasPendingOperator) clear();
+
         inputField.value += button.value;
-        // console.log(button.value);
     });
 });
 
