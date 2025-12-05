@@ -14,6 +14,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        console.log("Cannot be divided by 0");
+        clear();
+        return 0;
+    }
     let quotient = a / b;
     return quotient.toFixed(4);
 }
@@ -23,7 +28,14 @@ function divide(a, b) {
 //     let quotient = 0;
 // }
 
-const clear = () => (inputField.value = "");
+function clear() {
+    inputField.value = "";
+    num1 = 0;
+    num2 = 0;
+    result = 0;
+    operator = "";
+    hasPendingOperator = false;
+}
 
 const inputField = document.querySelector("#input-field");
 
@@ -45,14 +57,7 @@ let hasPendingOperator = false;
 buttonsInputOperator.forEach((button) => {
     switch (button.value) {
         case "clear":
-            button.addEventListener("click", () => {
-                clear();
-                num1 = 0;
-                num2 = 0;
-                result = 0;
-                operator = "";
-                hasPendingOperator = false;
-            });
+            button.addEventListener("click", () => clear());
             break;
         case "backspace":
             button.addEventListener("click", () => {
@@ -67,7 +72,7 @@ buttonsInputOperator.forEach((button) => {
 
 function calculate(num1, operator, num2) {
     num2 = +inputField.value;
-    clear();
+    inputField.value = "";
     result = operate(num1, operator, num2);
     num1 = result;
     inputField.value = result;
@@ -105,6 +110,11 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "/":
             button.addEventListener("click", () => {
+                // if (num2 === 0 && hasPendingOperator) {
+                //     console.log("Cannot be divided by 0");
+                //     clear();
+                //     return;
+                // }
                 if (hasPendingOperator) calculate(num1, operator, num2);
 
                 operator = "/";
@@ -114,6 +124,13 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "=":
             button.addEventListener("click", () => {
+                // if (num2 === 0 && operator === "/") {
+                //     console.log("Cannot be divided by 0");
+                //     clear();
+                //     return;
+                // }
+                if (!hasPendingOperator) return;
+
                 num2 = +inputField.value;
                 result = operate(num1, operator, num2);
                 num1 = result;
@@ -128,7 +145,7 @@ buttonsMathOperator.forEach((button) => {
 
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
-        if (hasPendingOperator) clear();
+        if (hasPendingOperator) inputField.value = "";
 
         inputField.value += button.value;
     });
