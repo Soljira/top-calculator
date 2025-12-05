@@ -8,6 +8,8 @@ const divide = (a, b) => a / b;
 //     let quotient = 0;
 // }
 
+const clear = () => (inputField.value = "");
+
 const inputField = document.querySelector("#input-field");
 
 const inputOperators = document.querySelector(".input-operators");
@@ -18,6 +20,37 @@ const buttonsMathOperator = [...mathOperators.querySelectorAll("button")];
 
 const numbers = document.querySelector(".numbers");
 const buttonsNum = [...numbers.querySelectorAll("button")];
+
+buttonsInputOperator.forEach((button) => {
+    switch (button.value) {
+        case "clear":
+            button.addEventListener("click", () => clear());
+            break;
+        case "backspace":
+            button.addEventListener("click", () => {
+                const newString = inputField.value.slice(0, -1);
+                inputField.value = newString;
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+buttonsMathOperator.forEach((button) => {
+    switch (button.value) {
+        case "+":
+            break;
+        case "-":
+            break;
+        case "*":
+            break;
+        case "/":
+            break;
+        default:
+            break;
+    }
+});
 
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
