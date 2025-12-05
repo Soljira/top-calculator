@@ -23,11 +23,6 @@ function divide(a, b) {
     return quotient.toFixed(4);
 }
 
-// function divide(a, b) {
-//     let invalidInput = false;
-//     let quotient = 0;
-// }
-
 function clear() {
     inputField.value = "";
     num1 = 0;
@@ -52,15 +47,21 @@ let num1 = 0,
     num2 = 0,
     result = 0;
 let operator = "";
+const operators = ["+", "-", "*", "/"];
 let hasPendingOperator = false;
+let lastClickedButton;
 
 buttonsInputOperator.forEach((button) => {
     switch (button.value) {
         case "clear":
-            button.addEventListener("click", () => clear());
+            button.addEventListener("click", () => {
+                lastClickedButton = button.value;
+                clear();
+            });
             break;
         case "backspace":
             button.addEventListener("click", () => {
+                lastClickedButton = button.value;
                 const newString = inputField.value.slice(0, -1);
                 inputField.value = newString;
             });
@@ -75,6 +76,7 @@ function calculate(num1, operator, num2) {
     inputField.value = "";
     result = operate(num1, operator, num2);
     num1 = result;
+    num2 = 0;
     inputField.value = result;
     hasPendingOperator = false;
 }
@@ -83,8 +85,15 @@ buttonsMathOperator.forEach((button) => {
     switch (button.value) {
         case "+":
             button.addEventListener("click", () => {
-                if (hasPendingOperator) calculate(num1, operator, num2);
+                if (operators.includes(lastClickedButton)) {
+                    lastClickedButton = button.value;
+                    operator = "+";
+                    return;
+                } else if (hasPendingOperator) {
+                    calculate(num1, operator, num2);
+                }
 
+                lastClickedButton = button.value;
                 operator = "+";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -92,8 +101,15 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "-":
             button.addEventListener("click", () => {
-                if (hasPendingOperator) calculate(num1, operator, num2);
+                if (operators.includes(lastClickedButton)) {
+                    lastClickedButton = button.value;
+                    operator = "-";
+                    return;
+                } else if (hasPendingOperator) {
+                    calculate(num1, operator, num2);
+                }
 
+                lastClickedButton = button.value;
                 operator = "-";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -101,8 +117,15 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "*":
             button.addEventListener("click", () => {
-                if (hasPendingOperator) calculate(num1, operator, num2);
+                if (operators.includes(lastClickedButton)) {
+                    lastClickedButton = button.value;
+                    operator = "*";
+                    return;
+                } else if (hasPendingOperator) {
+                    calculate(num1, operator, num2);
+                }
 
+                lastClickedButton = button.value;
                 operator = "*";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -110,13 +133,15 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "/":
             button.addEventListener("click", () => {
-                // if (num2 === 0 && hasPendingOperator) {
-                //     console.log("Cannot be divided by 0");
-                //     clear();
-                //     return;
-                // }
-                if (hasPendingOperator) calculate(num1, operator, num2);
+                if (operators.includes(lastClickedButton)) {
+                    lastClickedButton = button.value;
+                    operator = "/";
+                    return;
+                } else if (hasPendingOperator) {
+                    calculate(num1, operator, num2);
+                }
 
+                lastClickedButton = button.value;
                 operator = "/";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
@@ -124,19 +149,15 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "=":
             button.addEventListener("click", () => {
-                // if (num2 === 0 && operator === "/") {
-                //     console.log("Cannot be divided by 0");
-                //     clear();
-                //     return;
-                // }
                 if (!hasPendingOperator) return;
 
+                lastClickedButton = button.value;
                 num2 = +inputField.value;
                 result = operate(num1, operator, num2);
                 num1 = result;
+                num2 = 0;
                 inputField.value = result;
                 hasPendingOperator = false;
-                console.log(result);
             });
         default:
             break;
@@ -147,6 +168,7 @@ buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
         if (hasPendingOperator) inputField.value = "";
 
+        lastClickedButton = button.value;
         inputField.value += button.value;
     });
 });
