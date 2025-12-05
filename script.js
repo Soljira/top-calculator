@@ -1,7 +1,22 @@
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+function add(a, b) {
+    let sum = a + b;
+    return sum.toFixed(4);
+}
+
+function subtract(a, b) {
+    let difference = a - b;
+    return difference.toFixed(4);
+}
+
+function multiply(a, b) {
+    let product = a * b;
+    return product.toFixed(4);
+}
+
+function divide(a, b) {
+    let quotient = a / b;
+    return quotient.toFixed(4);
+}
 
 // function divide(a, b) {
 //     let invalidInput = false;
@@ -73,6 +88,7 @@ buttonsMathOperator.forEach((button) => {
         case "-":
             button.addEventListener("click", () => {
                 if (hasPendingOperator) calculate(num1, operator, num2);
+
                 operator = "-";
                 num1 = +inputField.value;
                 hasPendingOperator = true;
