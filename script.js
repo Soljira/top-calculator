@@ -1,6 +1,3 @@
-// todo: fix bug: input field clears after selecting operator
-// typing "5 + 1 2 3" would only show "3" instead of "123".
-
 const inputField = document.querySelector("#input-field");
 
 const inputOperators = document.querySelector(".input-operators");
@@ -176,6 +173,12 @@ buttonsMathOperator.forEach((button) => {
 
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
+        // prevents input field from clearing when hasPendingOperator is true
+        if (!isNaN(lastClickedButton)) {
+            inputField.value += button.value;
+            return;
+        }
+
         if (hasPendingOperator) inputField.value = "";
 
         lastClickedButton = button.value;
