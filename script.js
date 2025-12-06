@@ -17,6 +17,8 @@ const operators = ["+", "-", "*", "/"];
 let hasPendingOperator = false;
 let lastClickedButton;
 
+const defaultButtonBg = "#323232";
+
 function add(a, b) {
     let sum = a + b;
     return parseFloat(sum.toFixed(4));
@@ -55,13 +57,13 @@ buttonsInputOperator.forEach((button) => {
     switch (button.value) {
         case "clear":
             button.addEventListener("click", () => {
-                lastClickedButton = button.value;
+                lastClickedButton = button;
                 clear();
             });
             break;
         case "backspace":
             button.addEventListener("click", () => {
-                lastClickedButton = button.value;
+                lastClickedButton = button;
                 const newString = inputField.value.slice(0, -1);
                 inputField.value = newString;
             });
@@ -87,77 +89,37 @@ buttonsMathOperator.forEach((button) => {
     switch (button.value) {
         case "+":
             button.addEventListener("click", () => {
-                if (operators.includes(lastClickedButton)) {
-                    lastClickedButton = button.value;
-                    operator = "+";
-                    return;
-                } else if (hasPendingOperator) {
-                    calculate(num1, operator, num2);
-                }
-
-                lastClickedButton = button.value;
-                operator = "+";
-                num1 = +inputField.value;
-                hasPendingOperator = true;
+                changeBtnColor(button);
+                handleOperatorInput("+", button);
             });
             break;
         case "-":
             button.addEventListener("click", () => {
-                if (operators.includes(lastClickedButton)) {
-                    lastClickedButton = button.value;
-                    operator = "-";
-                    return;
-                } else if (hasPendingOperator) {
-                    calculate(num1, operator, num2);
-                }
-
-                lastClickedButton = button.value;
-                operator = "-";
-                num1 = +inputField.value;
-                hasPendingOperator = true;
+                changeBtnColor(button);
+                handleOperatorInput("-", button);
             });
             break;
         case "*":
             button.addEventListener("click", () => {
-                if (operators.includes(lastClickedButton)) {
-                    lastClickedButton = button.value;
-                    operator = "*";
-                    return;
-                } else if (hasPendingOperator) {
-                    calculate(num1, operator, num2);
-                }
-
-                lastClickedButton = button.value;
-                operator = "*";
-                num1 = +inputField.value;
-                hasPendingOperator = true;
+                changeBtnColor(button);
+                handleOperatorInput("*", button);
             });
             break;
         case "/":
             button.addEventListener("click", () => {
-                if (operators.includes(lastClickedButton)) {
-                    lastClickedButton = button.value;
-                    operator = "/";
-                    return;
-                } else if (hasPendingOperator) {
-                    calculate(num1, operator, num2);
-                }
-
-                lastClickedButton = button.value;
-                operator = "/";
-                num1 = +inputField.value;
-                hasPendingOperator = true;
+                changeBtnColor(button);
+                handleOperatorInput("/", button);
             });
             break;
         case "=":
             button.addEventListener("click", () => {
                 if (
                     !hasPendingOperator ||
-                    operators.includes(lastClickedButton)
+                    operators.includes(lastClickedButton.value)
                 )
                     return;
 
-                lastClickedButton = button.value;
+                lastClickedButton = button;
                 num2 = +inputField.value;
                 result = operate(num1, operator, num2);
                 num1 = result;
@@ -174,14 +136,14 @@ buttonsMathOperator.forEach((button) => {
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
         // prevents input field from clearing when hasPendingOperator is true
-        if (!isNaN(lastClickedButton)) {
+        if (lastClickedButton && !isNaN(lastClickedButton.value)) {
             inputField.value += button.value;
             return;
         }
 
         if (hasPendingOperator) inputField.value = "";
 
-        lastClickedButton = button.value;
+        lastClickedButton = button;
         inputField.value += button.value;
     });
 });
@@ -203,4 +165,30 @@ function operate(num1, operator, num2) {
         default:
             break;
     }
+}
+
+function changeBtnColor(button) {
+    buttonsMathOperator.forEach((btn) => {
+        if (btn.value === "=") {
+            return;
+        }
+        btn.style.backgroundColor = defaultButtonBg;
+    });
+
+    button.style.backgroundColor = "green";
+}
+
+function handleOperatorInput(operatorValue, button) {
+    if (lastClickedButton && operators.includes(lastClickedButton.value)) {
+        lastClickedButton = button;
+        operator = operatorValue;
+        return;
+    } else if (hasPendingOperator) {
+        calculate(num1, operator, num2);
+    }
+
+    lastClickedButton = button;
+    operator = operatorValue;
+    num1 = +inputField.value;
+    hasPendingOperator = true;
 }

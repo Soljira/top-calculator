@@ -9,6 +9,7 @@ body {
 button {
     padding: 1rem 2.5rem;
     margin: 0.4rem;
+    color: white;
 }
 
 .container,
@@ -33,15 +34,30 @@ button {
     flex-shrink: 0;
 }
 
+.container,
+#input-field {
+    background-color: #202020;
+}
+
 .container {
     border: 5px solid black;
     padding: 0.5rem;
     min-width: fit-content;
 }
 
+#input-field,
+button {
+    color: white;
+    /* removes the ugly bevel effect */
+    border: none;
+}
+
 #input-field {
-    padding: 2rem;
-    border: 3px solid black;
+    padding: 2rem 0;
+    text-align: end;
+    height: 6rem;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .input-operators .btn-backspace {
@@ -50,4 +66,25 @@ button {
 
 .num-fourth-row {
     justify-self: center;
+}
+
+.numbers button {
+    background-color: #3b3b3b;
+}
+
+.input-operators button,
+.math-operators button {
+    background-color: #323232;
+}
+
+button:hover {
+    background-color: #515151;
+}
+
+.math-operators .btn-equals {
+    background-color: #f46762;
+}
+
+.math-operators .btn-equals:hover {
+    background-color: #fa827e;
 }
