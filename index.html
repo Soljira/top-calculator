@@ -9,45 +9,92 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <h1>Calculator</h1>
-        <input type="text" name="input-field" id="input-field" />
-        <div class="input-operators">
-            <button type="button" class="btn-clear" value="clear">C</button>
-            <button type="button" class="btn-backspace" value="backspace">
-                Backspace
-            </button>
-        </div>
+        <!-- <h1>Calculator</h1> -->
 
-        <div class="math-operators">
-            <button type="button" class="btn-add" value="+">+</button>
-            <button type="button" class="btn-subtract" value="-">-</button>
-            <button type="button" class="btn-multiply" value="*">*</button>
-            <button type="button" class="btn-divide" value="/">/</button>
-            <button type="button" class="btn-equals" value="=">=</button>
-        </div>
-
-        <div class="numbers">
+        <div class="container">
             <div class="first-row">
-                <button type="button" class="btn-num7" value="7">7</button>
-                <button type="button" class="btn-num8" value="8">8</button>
-                <button type="button" class="btn-num9" value="9">9</button>
+                <input type="number" name="input-field" id="input-field" />
             </div>
 
-            <div class="second-row">
-                <button type="button" class="btn-num4" value="4">4</button>
-                <button type="button" class="btn-num5" value="5">5</button>
-                <button type="button" class="btn-num6" value="6">6</button>
-            </div>
+            <div class="keypad">
+                <div class="second-row">
+                    <div class="input-operators">
+                        <button type="button" class="btn-clear" value="clear">
+                            C
+                        </button>
+                        <button
+                            type="button"
+                            class="btn-backspace"
+                            value="backspace"
+                        >
+                            Backspace
+                        </button>
+                    </div>
+                    <div class="numbers">
+                        <div class="num-first-row">
+                            <button type="button" class="btn-num7" value="7">
+                                7
+                            </button>
+                            <button type="button" class="btn-num8" value="8">
+                                8
+                            </button>
+                            <button type="button" class="btn-num9" value="9">
+                                9
+                            </button>
+                        </div>
 
-            <div class="third-row">
-                <button type="button" class="btn-num1" value="1">1</button>
-                <button type="button" class="btn-num2" value="2">2</button>
-                <button type="button" class="btn-num3" value="3">3</button>
-            </div>
+                        <div class="num-second-row">
+                            <button type="button" class="btn-num4" value="4">
+                                4
+                            </button>
+                            <button type="button" class="btn-num5" value="5">
+                                5
+                            </button>
+                            <button type="button" class="btn-num6" value="6">
+                                6
+                            </button>
+                        </div>
 
-            <div class="fourth-row">
-                <button type="button" class="btn-num3" value="0">0</button>
-                <!-- <button type="button" class="btn-num3" value="0">.</button> -->
+                        <div class="num-third-row">
+                            <button type="button" class="btn-num1" value="1">
+                                1
+                            </button>
+                            <button type="button" class="btn-num2" value="2">
+                                2
+                            </button>
+                            <button type="button" class="btn-num3" value="3">
+                                3
+                            </button>
+                        </div>
+
+                        <div class="num-fourth-row">
+                            <button type="button" class="btn-num3" value="0">
+                                0
+                            </button>
+                            <!-- <button type="button" class="btn-num3" value="0">.</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="third-row">
+                    <div class="math-operators">
+                        <button type="button" class="btn-add" value="+">
+                            +
+                        </button>
+                        <button type="button" class="btn-subtract" value="-">
+                            -
+                        </button>
+                        <button type="button" class="btn-multiply" value="*">
+                            *
+                        </button>
+                        <button type="button" class="btn-divide" value="/">
+                            /
+                        </button>
+                        <button type="button" class="btn-equals" value="=">
+                            =
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

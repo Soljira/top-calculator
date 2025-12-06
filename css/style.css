@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+button {
+    padding: 1rem 2.5rem;
+    margin: 0.4rem;
+}
+
+.container,
+.keypad,
+.first-row,
+.input-operators,
+.math-operators {
+    display: flex;
+}
+
+.container,
+.first-row,
+.math-operators {
+    flex-direction: column;
+}
+
+/* prevents squeezing when resizing window */
+.container,
+.keypad,
+.second-row,
+.third-row {
+    flex-shrink: 0;
+}
+
+.container {
+    border: 5px solid black;
+    padding: 0.5rem;
+    min-width: fit-content;
+}
+
+#input-field {
+    padding: 2rem;
+    border: 3px solid black;
+}
+
+.input-operators .btn-backspace {
+    flex-grow: 1;
+}
+
+.num-fourth-row {
+    justify-self: center;
+}

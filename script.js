@@ -1,3 +1,25 @@
+// todo: fix bug: input field clears after selecting operator
+// typing "5 + 1 2 3" would only show "3" instead of "123".
+
+const inputField = document.querySelector("#input-field");
+
+const inputOperators = document.querySelector(".input-operators");
+const buttonsInputOperator = [...inputOperators.querySelectorAll("button")];
+
+const mathOperators = document.querySelector(".math-operators");
+const buttonsMathOperator = [...mathOperators.querySelectorAll("button")];
+
+const numbers = document.querySelector(".numbers");
+const buttonsNum = [...numbers.querySelectorAll("button")];
+
+let num1 = 0,
+    num2 = 0,
+    result = 0;
+let operator = "";
+const operators = ["+", "-", "*", "/"];
+let hasPendingOperator = false;
+let lastClickedButton;
+
 function add(a, b) {
     let sum = a + b;
     return parseFloat(sum.toFixed(4));
@@ -32,25 +54,6 @@ function clear() {
     hasPendingOperator = false;
 }
 
-const inputField = document.querySelector("#input-field");
-
-const inputOperators = document.querySelector(".input-operators");
-const buttonsInputOperator = [...inputOperators.querySelectorAll("button")];
-
-const mathOperators = document.querySelector(".math-operators");
-const buttonsMathOperator = [...mathOperators.querySelectorAll("button")];
-
-const numbers = document.querySelector(".numbers");
-const buttonsNum = [...numbers.querySelectorAll("button")];
-
-let num1 = 0,
-    num2 = 0,
-    result = 0;
-let operator = "";
-const operators = ["+", "-", "*", "/"];
-let hasPendingOperator = false;
-let lastClickedButton;
-
 buttonsInputOperator.forEach((button) => {
     switch (button.value) {
         case "clear":
@@ -71,6 +74,8 @@ buttonsInputOperator.forEach((button) => {
     }
 });
 
+// This is separate from operate() because calculate() deals with the actual storing of the relevant
+// numbers and preserving the previous number used in the operation
 function calculate(num1, operator, num2) {
     num2 = +inputField.value;
     inputField.value = "";
@@ -163,6 +168,7 @@ buttonsMathOperator.forEach((button) => {
                 inputField.value = result;
                 hasPendingOperator = false;
             });
+            break;
         default:
             break;
     }
