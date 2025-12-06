@@ -1,3 +1,5 @@
+// todo: decimal points, and removing .000
+
 function add(a, b) {
     let sum = a + b;
     return sum.toFixed(4);
@@ -149,7 +151,11 @@ buttonsMathOperator.forEach((button) => {
             break;
         case "=":
             button.addEventListener("click", () => {
-                if (!hasPendingOperator) return;
+                if (
+                    !hasPendingOperator ||
+                    operators.includes(lastClickedButton)
+                )
+                    return;
 
                 lastClickedButton = button.value;
                 num2 = +inputField.value;
