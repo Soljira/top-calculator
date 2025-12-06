@@ -51,6 +51,12 @@ function clear() {
     result = 0;
     operator = "";
     hasPendingOperator = false;
+
+    buttonsMathOperator.forEach((btn) => {
+        if (btn.value !== "=") {
+            btn.style.backgroundColor = defaultButtonBg;
+        }
+    });
 }
 
 buttonsInputOperator.forEach((button) => {
@@ -73,9 +79,9 @@ buttonsInputOperator.forEach((button) => {
     }
 });
 
-// This is separate from operate() because calculate() deals with the actual storing of the relevant
+// This is separate from operate() because resolvePendingOperation() deals with the actual storing of the relevant
 // numbers and preserving the previous number used in the operation
-function calculate(num1, operator, num2) {
+function resolvePendingOperation() {
     num2 = +inputField.value;
     inputField.value = "";
     result = operate(num1, operator, num2);
@@ -119,6 +125,7 @@ buttonsMathOperator.forEach((button) => {
                 )
                     return;
 
+                changeBtnColor(button);
                 lastClickedButton = button;
                 num2 = +inputField.value;
                 result = operate(num1, operator, num2);
@@ -135,6 +142,9 @@ buttonsMathOperator.forEach((button) => {
 
 buttonsNum.forEach((button) => {
     button.addEventListener("click", () => {
+        if (lastClickedButton && lastClickedButton.value === "=") {
+            inputField.value = "";
+        }
         // prevents input field from clearing when hasPendingOperator is true
         if (lastClickedButton && !isNaN(lastClickedButton.value)) {
             inputField.value += button.value;
@@ -169,13 +179,11 @@ function operate(num1, operator, num2) {
 
 function changeBtnColor(button) {
     buttonsMathOperator.forEach((btn) => {
-        if (btn.value === "=") {
-            return;
-        }
+        if (btn.value === "=") return;
         btn.style.backgroundColor = defaultButtonBg;
     });
 
-    button.style.backgroundColor = "green";
+    if (button.value !== "=") button.style.backgroundColor = "green";
 }
 
 function handleOperatorInput(operatorValue, button) {
@@ -184,7 +192,7 @@ function handleOperatorInput(operatorValue, button) {
         operator = operatorValue;
         return;
     } else if (hasPendingOperator) {
-        calculate(num1, operator, num2);
+        resolvePendingOperation();
     }
 
     lastClickedButton = button;
