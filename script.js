@@ -17,8 +17,6 @@ const operators = ["+", "-", "*", "/"];
 let hasPendingOperator = false;
 let lastClickedButton;
 
-const defaultButtonBg = "#323232";
-
 function add(a, b) {
     let sum = a + b;
     return parseFloat(sum.toFixed(4));
@@ -54,7 +52,7 @@ function clear() {
 
     buttonsMathOperator.forEach((btn) => {
         if (btn.value !== "=") {
-            btn.style.backgroundColor = defaultButtonBg;
+            btn.classList.remove("active");
         }
     });
 }
@@ -180,10 +178,12 @@ function operate(num1, operator, num2) {
 function changeBtnColor(button) {
     buttonsMathOperator.forEach((btn) => {
         if (btn.value === "=") return;
-        btn.style.backgroundColor = defaultButtonBg;
+        btn.classList.remove("active");
     });
 
-    if (button.value !== "=") button.style.backgroundColor = "green";
+    if (button && button.value !== "=") {
+        button.classList.add("active");
+    }
 }
 
 function handleOperatorInput(operatorValue, button) {

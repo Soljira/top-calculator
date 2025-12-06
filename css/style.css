@@ -7,7 +7,7 @@ body {
 }
 
 button {
-    padding: 1rem 2.5rem;
+    padding: 2rem 4rem;
     margin: 0.4rem;
     color: white;
 }
@@ -42,7 +42,6 @@ button {
 .container {
     border: 5px solid black;
     padding: 0.5rem;
-    min-width: fit-content;
 }
 
 #input-field,
@@ -53,11 +52,16 @@ button {
 }
 
 #input-field {
-    padding: 2rem 0;
+    padding: 1rem 0;
     text-align: end;
-    height: 6rem;
-    font-size: 20px;
+    height: 10rem;
+    /* width: 100%; */
+    font-size: 30px;
     font-weight: bold;
+}
+
+.keypad button {
+    font-size: 20px;
 }
 
 .input-operators .btn-backspace {
@@ -77,14 +81,17 @@ button {
     background-color: #323232;
 }
 
-button:hover {
-    background-color: #515151;
-}
-
 .math-operators .btn-equals {
     background-color: #f46762;
 }
 
+button:hover {
+    background-color: #515151;
+}
+
+.math-operators button.active {
+    background-color: green;
+}
 .math-operators .btn-equals:hover {
     background-color: #fa827e;
 }
