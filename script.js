@@ -1,18 +1,16 @@
-// todo: decimal points, and removing .000
-
 function add(a, b) {
     let sum = a + b;
-    return sum.toFixed(4);
+    return parseFloat(sum.toFixed(4));
 }
 
 function subtract(a, b) {
     let difference = a - b;
-    return difference.toFixed(4);
+    return parseFloat(difference.toFixed(4));
 }
 
 function multiply(a, b) {
     let product = a * b;
-    return product.toFixed(4);
+    return parseFloat(product.toFixed(4));
 }
 
 function divide(a, b) {
@@ -22,7 +20,7 @@ function divide(a, b) {
         return 0;
     }
     let quotient = a / b;
-    return quotient.toFixed(4);
+    return parseFloat(quotient.toFixed(4));
 }
 
 function clear() {
